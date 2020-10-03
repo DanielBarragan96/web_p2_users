@@ -139,6 +139,19 @@ function compare(a, b) {
     return 0;
 }
 
+function findUsers(nombre, email, sexo, fechaIni, fechaFin) {
+    let filteredUsers = users;
+    filteredUsers = filteredUsers.filter((user) => {
+        let result = true;
+        if (nombre !== undefined) result &= (user.name.includes(nombre)) || (user.last_name.includes(nombre));
+        if (email !== undefined) result &= (user.email === email);
+        if (sexo !== undefined) result &= (user.gender === sexo);
+        return result;
+    });
+    // console.log(filteredUsers);
+    userListToHTML(filteredUsers);
+}
+
 
 initData();
 // updateUser(users[2].uid, users[1]);
