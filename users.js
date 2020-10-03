@@ -40,12 +40,12 @@ const initData = () => {
                 users.push(new User(user.nombre, user.apellidos, user.email, user.password, user.fecha, user.sexo, user.uid, user.image));
             }
             // console.log(users);
-            addUser("Daniel", "Barra", "daniel@correo.com", "estaesunacontra", "2020-10-03", "H");
-            addUser("Lore", "Gomez", "lore@correo.com", "estaesunacontra", "2020-10-03", "M");
-            addUser("Juan", "Perez", "juan@correo.com", "estaesunacontra", "2020-10-03", "H");
-            addUser("Ana", "Ochoa", "ana@correo.com", "estaesunacontra", "2020-10-03", "M");
-            addUser("Rauuul", "Correa", "rauuuul@correo.com", "estaesunacontra", "2020-10-03", "H");
-            addUser("Mimi", "Santorini", "daniel@correo.com", "estaesunacontra", "2020-10-03", "M");
+            // addUser("Daniel", "Barra", "daniel@correo.com", "estaesunacontra", "2020-10-03", "H");
+            // addUser("Lore", "Gomez", "lore@correo.com", "estaesunacontra", "2020-10-03", "M");
+            // addUser("Juan", "Perez", "juan@correo.com", "estaesunacontra", "2020-10-03", "H");
+            // addUser("Ana", "Ochoa", "ana@correo.com", "estaesunacontra", "2020-10-03", "M");
+            // addUser("Rauuul", "Correa", "rauuuul@correo.com", "estaesunacontra", "2020-10-03", "H");
+            // addUser("Mimi", "Santorini", "daniel@correo.com", "estaesunacontra", "2020-10-03", "M");
             userListToHTML(users);
         },
         //Callback_error
@@ -139,13 +139,22 @@ function compare(a, b) {
     return 0;
 }
 
+function validateDate(fechaIni, fechaFin) {
+    fechaIni = Date(fechaIni);
+    fechaFin = Date(fechaFin);
+    console.log(fechaIni);
+    console.log(fechaFin);
+    return true;
+}
+
 function findUsers(nombre, email, sexo, fechaIni, fechaFin) {
     let filteredUsers = users;
     filteredUsers = filteredUsers.filter((user) => {
         let result = true;
-        if (nombre !== undefined) result &= (user.name.includes(nombre)) || (user.last_name.includes(nombre));
+        if (nombre !== undefined) result &= (user.name.toUpperCase().includes(nombre.toUpperCase())) || (user.last_name.toUpperCase().includes(nombre.toUpperCase()));
         if (email !== undefined) result &= (user.email === email);
         if (sexo !== undefined) result &= (user.gender === sexo);
+        result &= validateDate(fechaIni, fechaFin);
         return result;
     });
     // console.log(filteredUsers);
