@@ -76,7 +76,7 @@ function userListToHTML(userList) {
 
 function getNewId(uid) {
     let iteration = 0; //used to break infinite loop
-    while (uid > 100 || (global_uid.includes(uid) && iteration < 100)) {
+    while (uid === undefined || uid > 100 || uid <= 0 || (global_uid.includes(uid) && iteration < 100)) {
         uid = Math.floor(Math.random() * 99) + 1;
         iteration++;
     }
@@ -94,7 +94,7 @@ function verifyEmail(email) {
 }
 
 function addUser(name, last_name, email, password, date, gender) {
-    let uid = getNewId(1);
+    let uid = getNewId();
     let genderS = (gender === "H") ? "men" : "women";
     let image =
         `https://randomuser.me/api/portraits/${genderS}/${uid}.jpg`;
@@ -123,7 +123,24 @@ function deleteUser(uid) {
     userListToHTML(users);
 }
 
+function sortUsers(cb) {
+    users.sort(cb);
+    userListToHTML(users);
+}
+
+//function used to sort by user id
+function compare(a, b) {
+    if (a.uid < b.uid) {
+        return -1;
+    }
+    if (a.uid > b.uid) {
+        return 1;
+    }
+    return 0;
+}
+
 
 initData();
 // updateUser(users[2].uid, users[1]);
 // deleteUser(users[2].uid);
+// sortUsers(compare)
