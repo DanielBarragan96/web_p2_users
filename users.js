@@ -152,8 +152,8 @@ function findUsers(nombre, email, sexo, fechaIni, fechaFin) {
     filteredUsers = filteredUsers.filter((user) => {
         let result = true;
         if (nombre !== undefined) result &= (user.name.toUpperCase().includes(nombre.toUpperCase())) || (user.last_name.toUpperCase().includes(nombre.toUpperCase()));
-        if (email !== undefined) result &= (user.email === email);
-        if (sexo !== undefined) result &= (user.gender === sexo);
+        if (email !== undefined) result &= (user.email.toUpperCase() === email.toUpperCase());
+        if (sexo !== undefined) result &= (user.gender.toUpperCase() === sexo.toUpperCase());
         result &= validateDate(fechaIni, fechaFin);
         return result;
     });
