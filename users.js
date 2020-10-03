@@ -25,6 +25,7 @@ class User {
 }
 
 let global_uid = [];
+let global_email = [];
 
 let users = [];
 let json_url =
@@ -35,8 +36,8 @@ const initData = () => {
         (datos) => {
             for (let user of datos) {
                 user.uid = getNewId(user.uid);
+                user.email = verifyEmail(user.email);
                 users.push(new User(user.nombre, user.apellidos, user.email, user.password, user.fecha, user.sexo, user.uid, user.image));
-                global_uid.push(user.uid);
             }
             // console.log(users);
             addUser("Daniel", "Barra", "daniel@correo.com", "estaesunacontra", "2020-10-03", "H");
@@ -44,7 +45,7 @@ const initData = () => {
             addUser("Juan", "Perez", "juan@correo.com", "estaesunacontra", "2020-10-03", "H");
             addUser("Ana", "Ochoa", "ana@correo.com", "estaesunacontra", "2020-10-03", "M");
             addUser("Rauuul", "Correa", "rauuuul@correo.com", "estaesunacontra", "2020-10-03", "H");
-            addUser("Mimi", "Santorini", "mimi@correo.com", "estaesunacontra", "2020-10-03", "M");
+            addUser("Mimi", "Santorini", "daniel@correo.com", "estaesunacontra", "2020-10-03", "M");
             userListToHTML(users);
         },
         //Callback_error
@@ -77,17 +78,28 @@ function getNewId(uid) {
     while (global_uid.includes(uid)) {
         uid = Math.floor(Math.random() * 100) + 1;
     }
+    global_uid.push(uid);
     return uid;
+}
+
+function verifyEmail(email) {
+    if (global_email.includes(email))
+        email = undefined;
+    else
+        global_email.push(email);
+    return email;
 }
 
 function addUser(name, last_name, email, password, date, gender) {
     let uid = getNewId(1);
-    global_uid.push(uid);
-    let image = (gender === "H") ?
-        `https://randomuser.me/api/portraits/men/${uid}.jpg` :
-        `https://randomuser.me/api/portraits/women/${uid}.jpg`;
+    let genderS = (gender === "H") ? "men" : "women";
+    let image =
+        `https://randomuser.me/api/portraits/${genderS}/${uid}.jpg`;
+
+    email = verifyEmail(email);
     users.push(new User(name, last_name, email, password, date, gender, uid, image));
 }
+
 
 
 initData();
