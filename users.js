@@ -34,15 +34,17 @@ const initData = () => {
         //Callback_ok
         (datos) => {
             for (let user of datos) {
-                while (global_uid.includes(user.uid)) {
-                    user.uid = Math.floor(Math.random() * 10000);
-                }
+                user.uid = getNewId(user.uid);
                 users.push(new User(user.nombre, user.apellidos, user.email, user.password, user.fecha, user.sexo, user.uid, user.image));
                 global_uid.push(user.uid);
             }
             // console.log(users);
-            addUser("Daniel", "Barra", "daniel@correo.com", "estaesunacontra", "2020-10-03", "H", 2);
-            addUser("Lore", "Gomez", "lore@correo.com", "estaesunacontra", "2020-10-03", "M", 2);
+            addUser("Daniel", "Barra", "daniel@correo.com", "estaesunacontra", "2020-10-03", "H");
+            addUser("Lore", "Gomez", "lore@correo.com", "estaesunacontra", "2020-10-03", "M");
+            addUser("Juan", "Perez", "juan@correo.com", "estaesunacontra", "2020-10-03", "H");
+            addUser("Ana", "Ochoa", "ana@correo.com", "estaesunacontra", "2020-10-03", "M");
+            addUser("Rauuul", "Correa", "rauuuul@correo.com", "estaesunacontra", "2020-10-03", "H");
+            addUser("Mimi", "Santorini", "mimi@correo.com", "estaesunacontra", "2020-10-03", "M");
             userListToHTML(users);
         },
         //Callback_error
@@ -58,7 +60,7 @@ function userToHTML(user) {
     element += `<p>${user.gender}: ${user.email}</p>`;
     element += `<p>${user.date}</p>`;
     element += `<p>${user.uid}</p>`;
-    console.log(element);
+    // console.log(element);
     return element;
 }
 
@@ -70,14 +72,20 @@ function userListToHTML(userList) {
     }
 }
 
-function addUser(name, last_name, email, password, date, gender, uid) {
+function getNewId(uid) {
+    uid = (uid > 100) ? 1 : uid;
     while (global_uid.includes(uid)) {
-        uid = Math.floor(Math.random() * 10000);
+        uid = Math.floor(Math.random() * 100) + 1;
     }
+    return uid;
+}
+
+function addUser(name, last_name, email, password, date, gender) {
+    let uid = getNewId(1);
     global_uid.push(uid);
     let image = (gender === "H") ?
-        `https://randomuser.me/api/portraits/men/${users.length}.jpg` :
-        `https://randomuser.me/api/portraits/women/${users.length}.jpg`;
+        `https://randomuser.me/api/portraits/men/${uid}.jpg` :
+        `https://randomuser.me/api/portraits/women/${uid}.jpg`;
     users.push(new User(name, last_name, email, password, date, gender, uid, image));
 }
 
