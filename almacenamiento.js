@@ -1,16 +1,5 @@
 "use strict";
 
-let users_example = [{
-    "nombre": "Juan",
-    "apellidos": "Perez",
-    "email": "perez@gmail.com",
-    "password": "hoola",
-    "fecha": "2000-10-28",
-    "sexo": "H",
-    "uid": 10001,
-    "image": "https://randomuser.me/api/portraits/men/0.jpg",
-}, ];
-
 function loadJSON(urlJSON, cbOK, cbERROR) {
     // 1. Crear XMLHttpRequest object
     let xhr = new XMLHttpRequest();
@@ -41,6 +30,3 @@ function loadJSON(urlJSON, cbOK, cbERROR) {
 // let url =
 //     "http://practica2-iteso.mybluemix.net/users";
 // loadJSON(url);
-
-// // add content to html
-// document.getElementById('info').innerHTML = "<h1>Holaaa</h1>"
