@@ -103,6 +103,7 @@ function addUser(name, last_name, email, password, date, gender) {
 
 function updateUser(uid, newValue) {
     let index = users.findIndex((element) => element.uid === uid);
+    if (index < 0) return;
     users[index].name = newValue.name;
     users[index].last_name = newValue.last_name;
     users[index].email = newValue.email;
