@@ -20,7 +20,7 @@ class User {
         this.date = date;
         this.gender = gender;
         this.uid = uid;
-        this.image = image
+        this.image = image;
     }
 }
 
@@ -66,6 +66,7 @@ function userToHTML(user) {
 }
 
 function userListToHTML(userList) {
+    document.getElementById('info').innerHTML = "";
     for (let user of userList) {
         let userS = userToHTML(user);
         // add content to html
@@ -76,7 +77,7 @@ function userListToHTML(userList) {
 function getNewId(uid) {
     uid = (uid > 100) ? 1 : uid;
     while (global_uid.includes(uid)) {
-        uid = Math.floor(Math.random() * 100) + 1;
+        uid = Math.floor(Math.random() * 99) + 1;
     }
     global_uid.push(uid);
     return uid;
@@ -100,6 +101,18 @@ function addUser(name, last_name, email, password, date, gender) {
     users.push(new User(name, last_name, email, password, date, gender, uid, image));
 }
 
+function updateUser(uid, newValue) {
+    let index = users.findIndex((element) => element.uid === uid);
+    users[index].name = newValue.name;
+    users[index].last_name = newValue.last_name;
+    users[index].email = newValue.email;
+    users[index].password = newValue.password;
+    users[index].date = newValue.date;
+    users[index].gender = newValue.gender;
+    users[index].image = newValue.image;
+    userListToHTML(users);
+}
 
 
 initData();
+// updateUser(users[2].uid, users[1]);
