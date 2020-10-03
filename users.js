@@ -75,10 +75,12 @@ function userListToHTML(userList) {
 }
 
 function getNewId(uid) {
-    uid = (uid > 100) ? 1 : uid;
-    while (global_uid.includes(uid)) {
+    let iteration = 0; //used to break infinite loop
+    while (uid > 100 || (global_uid.includes(uid) && iteration < 100)) {
         uid = Math.floor(Math.random() * 99) + 1;
+        iteration++;
     }
+    if (iteration >= 100) return undefined;
     global_uid.push(uid);
     return uid;
 }
@@ -114,6 +116,14 @@ function updateUser(uid, newValue) {
     userListToHTML(users);
 }
 
+function deleteUser(uid) {
+    let index = users.findIndex((element) => element.uid === uid);
+    if (index < 0) return;
+    users.splice(index, 1);
+    userListToHTML(users);
+}
+
 
 initData();
 // updateUser(users[2].uid, users[1]);
+// deleteUser(users[2].uid);
