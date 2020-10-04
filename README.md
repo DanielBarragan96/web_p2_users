@@ -1,5 +1,7 @@
 # web_p2_users
 
+[Video de la práctica funcionando](https://youtu.be/O_Njq1nvJ7c)
+
 ### Práctica de JavaScript
 Operaciones con arreglos de usuarios
 Objetivo: Emplear el conjunto de instrucciones de JavaScript para simular operaciones de altas, bajas, cambios y consultas en un archivo JSON.
