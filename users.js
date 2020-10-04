@@ -43,12 +43,12 @@ const initData = () => {
                 user.email = verifyEmail(user.email);
                 users.push(User.createUser(user));
             }
-            addUser("Daniel", "Barra", "daniel@correo.com", "estaesunacontra", "2020-10-03", "H");
+            addUser("Daniel", "Barra", "dan@correo.com", "estaesunacontra", "2020-10-03", "H");
             addUser("Lore", "Gomez", "lore@correo.com", "estaesunacontra", "2019-10-03", "M");
             addUser("Juan", "Perez", "juan@correo.com", "estaesunacontra", "2018-10-03", "H");
             addUser("Ana", "Ochoa", "ana@correo.com", "estaesunacontra", "2017-10-03", "M");
-            addUser("Rauuul", "Correa", "rauuuul@correo.com", "estaesunacontra", "2016-10-03", "H");
-            addUser("Mimi", "Santorini", "mimi@correo.com", "estaesunacontra", "2015-10-03", "M");
+            addUser("Rauuul", "Correa", "rauuul@correo.com", "estaesunacontra", "2016-10-03", "H");
+            addUser("Mimi", "Santo", "mimi@correo.com", "estaesunacontra", "2015-10-03", "M");
             userListToHTML(users);
         },
         //Callback_error
@@ -58,12 +58,13 @@ const initData = () => {
 };
 
 function userToHTML(user) {
-    let element = ""
-    element += `<img src="${user.image}" >`;
-    element += `<h1>${user.name} ${user.last_name}</h1>`;
-    element += `<p>${user.gender}: ${user.email}</p>`;
+    let element = `<div class="card text-left">`;
+    element += `<img class="mx-auto" src="${user.image}" >`;
+    element += `<h4 class="title">${user.name} ${user.last_name}</h4>`;
+    element += `<p class="card-text">${user.gender}: ${user.email}</p>`;
     element += `<p>${user.date}</p>`;
     element += `<p>${user.uid}</p>`;
+    element += `</div>`;
     return element;
 }
 
@@ -168,6 +169,19 @@ function findUsers(nombre, email, sexo, fechaIni, fechaFin) {
     userListToHTML(filteredUsers);
 }
 
+function savedUsers() {
+    console.log("Users saved sucessfully");
+}
+
+function errorSavingUsers() {
+    console.log("There was an error saving the users");
+}
+
+function saveUsers() {
+    console.log("Save new JSON");
+    guardarEnJSON();
+}
+
 
 initData();
 // updateUser(users[2].uid, users[1]);
@@ -176,7 +190,9 @@ initData();
 // findUsers(undefined, "rauuuul@correo.com", "H");
 // findUsers(undefined, undefined, undefined, "2000-10-20", "2016-01-01");
 
-setTimeout(() => {
-    console.log("Sort users by ID");
-    sortUsers(compareById)
-}, 3000);
+// setTimeout(() => {
+//     console.log("Sort users by ID");
+//     sortUsers(compareById)
+// }, 3000);
+
+setTimeout(() => {}, 3000);
