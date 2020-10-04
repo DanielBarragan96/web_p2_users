@@ -22,6 +22,10 @@ class User {
         this.uid = uid;
         this.image = image;
     }
+
+    static createUser(user) {
+        return new User(user.nombre, user.apellidos, user.email, user.password, user.fecha, user.sexo, user.uid, user.image)
+    }
 }
 
 let global_uid = [];
@@ -37,15 +41,14 @@ const initData = () => {
             for (let user of datos) {
                 user.uid = getNewId(user.uid);
                 user.email = verifyEmail(user.email);
-                users.push(new User(user.nombre, user.apellidos, user.email, user.password, user.fecha, user.sexo, user.uid, user.image));
+                users.push(User.createUser(user));
             }
-            // console.log(users);
-            // addUser("Daniel", "Barra", "daniel@correo.com", "estaesunacontra", "2020-10-03", "H");
-            // addUser("Lore", "Gomez", "lore@correo.com", "estaesunacontra", "2020-10-03", "M");
-            // addUser("Juan", "Perez", "juan@correo.com", "estaesunacontra", "2020-10-03", "H");
-            // addUser("Ana", "Ochoa", "ana@correo.com", "estaesunacontra", "2020-10-03", "M");
-            // addUser("Rauuul", "Correa", "rauuuul@correo.com", "estaesunacontra", "2020-10-03", "H");
-            // addUser("Mimi", "Santorini", "daniel@correo.com", "estaesunacontra", "2020-10-03", "M");
+            addUser("Daniel", "Barra", "daniel@correo.com", "estaesunacontra", "2020-10-03", "H");
+            addUser("Lore", "Gomez", "lore@correo.com", "estaesunacontra", "2019-10-03", "M");
+            addUser("Juan", "Perez", "juan@correo.com", "estaesunacontra", "2018-10-03", "H");
+            addUser("Ana", "Ochoa", "ana@correo.com", "estaesunacontra", "2017-10-03", "M");
+            addUser("Rauuul", "Correa", "rauuuul@correo.com", "estaesunacontra", "2016-10-03", "H");
+            addUser("Mimi", "Santorini", "mimi@correo.com", "estaesunacontra", "2015-10-03", "M");
             userListToHTML(users);
         },
         //Callback_error
@@ -61,7 +64,6 @@ function userToHTML(user) {
     element += `<p>${user.gender}: ${user.email}</p>`;
     element += `<p>${user.date}</p>`;
     element += `<p>${user.uid}</p>`;
-    // console.log(element);
     return element;
 }
 
@@ -139,12 +141,18 @@ function compare(a, b) {
     return 0;
 }
 
-function validateDate(fechaIni, fechaFin) {
-    fechaIni = Date(fechaIni);
-    fechaFin = Date(fechaFin);
-    console.log(fechaIni);
-    console.log(fechaFin);
-    return true;
+function validateDate(userDate, fechaIni, fechaFin) {
+    userDate = Date.parse(userDate);
+    let result = true;
+    if (fechaIni !== undefined) {
+        fechaIni = Date.parse(fechaIni);
+        result &= (userDate >= fechaIni);
+    }
+    if (fechaFin !== undefined) {
+        fechaFin = Date.parse(fechaFin);
+        result &= (userDate <= fechaFin);
+    }
+    return result;
 }
 
 function findUsers(nombre, email, sexo, fechaIni, fechaFin) {
@@ -152,12 +160,11 @@ function findUsers(nombre, email, sexo, fechaIni, fechaFin) {
     filteredUsers = filteredUsers.filter((user) => {
         let result = true;
         if (nombre !== undefined) result &= (user.name.toUpperCase().includes(nombre.toUpperCase())) || (user.last_name.toUpperCase().includes(nombre.toUpperCase()));
-        if (email !== undefined) result &= (user.email.toUpperCase() === email.toUpperCase());
+        if (email !== undefined && user.email !== undefined) result &= (user.email.toUpperCase() === email.toUpperCase());
         if (sexo !== undefined) result &= (user.gender.toUpperCase() === sexo.toUpperCase());
-        result &= validateDate(fechaIni, fechaFin);
+        result &= validateDate(user.date, fechaIni, fechaFin);
         return result;
     });
-    // console.log(filteredUsers);
     userListToHTML(filteredUsers);
 }
 
@@ -166,3 +173,5 @@ initData();
 // updateUser(users[2].uid, users[1]);
 // deleteUser(users[2].uid);
 // sortUsers(compare)
+// findUsers(undefined, "rauuuul@correo.com", "H");
+// findUsers(undefined, undefined, undefined, "2000-10-20", "2016-01-01");
