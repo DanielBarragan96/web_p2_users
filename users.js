@@ -34,6 +34,8 @@ let global_email = [];
 let users = [];
 let json_url =
     "http://practica2-iteso.mybluemix.net/users";
+let json_url_save =
+    "http://practica2-iteso.mybluemix.net/users";
 const initData = () => {
     loadJSON(json_url,
         //Callback_ok
@@ -170,16 +172,21 @@ function findUsers(nombre, email, sexo, fechaIni, fechaFin) {
 }
 
 function savedUsers() {
-    console.log("Users saved sucessfully");
+    document.getElementById('msg').innerHTML = `<p class="success">Users saved sucessfully</p>`;
+    setTimeout(() => {
+        document.getElementById('msg').innerHTML = "";
+    }, 3000);
 }
 
 function errorSavingUsers() {
-    console.log("There was an error saving the users");
+    document.getElementById('msg').innerHTML = `<p class="error">There was an error saving the users</p>`;
+    setTimeout(() => {
+        document.getElementById('msg').innerHTML = "";
+    }, 3000);
 }
 
 function saveUsers() {
-    console.log("Save new JSON");
-    guardarEnJSON();
+    guardarEnJSON(users, json_url_save, savedUsers, errorSavingUsers);
 }
 
 
@@ -195,4 +202,6 @@ initData();
 //     sortUsers(compareById)
 // }, 3000);
 
-setTimeout(() => {}, 3000);
+// setTimeout(() => {
+//     saveUsers();
+// }, 3000);

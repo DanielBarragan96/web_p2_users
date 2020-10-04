@@ -29,7 +29,7 @@ function loadJSON(urlJSON, cbOK, cbERROR) {
 
 //se debe mandar siempre todo el arreglo de alumnos
 //porque reemplaza el anterior archivo por el nuevo
-function guardarEnJSON(datos, url) {
+function guardarEnJSON(datos, url, cbOK, cbERROR) {
     // 1. Crear XMLHttpRequest object
     let xhr = new XMLHttpRequest();
     // 2. Configurar:  PUT actualizar archivo
@@ -43,9 +43,11 @@ function guardarEnJSON(datos, url) {
         if (xhr.status != 200) { // analizar el estatus de la respuesta HTTP 
             // Ocurrió un error
             alert(xhr.status + ': ' + xhr.statusText); // e.g. 404: Not Found
+            cbERROR();
 
         } else {
             console.log(xhr.responseText); // Significa que fue exitoso
+            cbOK();
         }
     };
 }
