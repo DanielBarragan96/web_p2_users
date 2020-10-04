@@ -194,7 +194,7 @@ initData();
 // updateUser(users[2].uid, users[1]);
 // deleteUser(users[2].uid);
 // sortUsers(compareById)
-// findUsers(undefined, "rauuuul@correo.com", "H");
+// findUsers(undefined, "rauuul@correo.com", "H");
 // findUsers(undefined, undefined, undefined, "2000-10-20", "2016-01-01");
 
 // setTimeout(() => {
