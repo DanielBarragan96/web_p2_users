@@ -175,3 +175,8 @@ initData();
 // sortUsers(compareById)
 // findUsers(undefined, "rauuuul@correo.com", "H");
 // findUsers(undefined, undefined, undefined, "2000-10-20", "2016-01-01");
+
+setTimeout(() => {
+    console.log("Sort users by ID");
+    sortUsers(compareById)
+}, 3000);
