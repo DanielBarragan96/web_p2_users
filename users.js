@@ -131,7 +131,7 @@ function sortUsers(cb) {
 }
 
 //function used to sort by user id
-function compare(a, b) {
+function compareById(a, b) {
     if (a.uid < b.uid) {
         return -1;
     }
@@ -172,6 +172,6 @@ function findUsers(nombre, email, sexo, fechaIni, fechaFin) {
 initData();
 // updateUser(users[2].uid, users[1]);
 // deleteUser(users[2].uid);
-// sortUsers(compare)
+// sortUsers(compareById)
 // findUsers(undefined, "rauuuul@correo.com", "H");
 // findUsers(undefined, undefined, undefined, "2000-10-20", "2016-01-01");
